@@ -1,0 +1,11 @@
+{
+    "name": "AppointmentToDoctorWidget",
+    "alias": "appointmenttodoctorwidget",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\AppointmentToDoctorWidget\\Providers\\AppointmentToDoctorWidgetServiceProvider"
+    ],
+    "files": []
+}

@@ -1,0 +1,29 @@
+{
+  "name": "nwidart/doctortmkwidget",
+  "description": "",
+  "authors": [
+    {
+      "name": "Nicolas Widart",
+      "email": "n.widart@gmail.com"
+    }
+  ],
+  "extra": {
+    "laravel": {
+      "providers": [],
+      "aliases": {
+      }
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Modules\\DoctorTmkWidget\\": "app/",
+      "Modules\\DoctorTmkWidget\\Database\\Factories\\": "database/factories/",
+      "Modules\\DoctorTmkWidget\\Database\\Seeders\\": "database/seeders/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Modules\\DoctorTmkWidget\\Tests\\": "tests/"
+    }
+  }
+}

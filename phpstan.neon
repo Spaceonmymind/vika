@@ -1,0 +1,33 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/nesbot/carbon/extension.neon
+
+parameters:
+    # Level 10 is the highest level
+    level: 5
+    tmpDir: './.phpstan'
+    paths:
+        - app
+        - Modules
+        - database
+    excludePaths:
+        - **/node_modules/*
+    databaseMigrationsPath:
+        - database/migrations
+        - Modules/ActirovkiWidget/database/migrations
+        - Modules/Chat/database/migrations
+        - Modules/DistrictSearchWidget/database/migrations
+        - Modules/EmploymentUgraWidget/database/migrations
+        - Modules/Esia/database/migrations
+        - Modules/FuelPriceWidget/database/migrations
+        - Modules/PfrHelpWidget/database/migrations
+        - Modules/PhoneBookWidget/database/migrations
+        - Modules/TimetableWidget/database/migrations
+    configDirectories:
+        - config
+        - Modules/ActirovkiWidget/config
+        - Modules/Esia/config
+#    ignoreErrors:
+#        - message: '#Call to an undefined method Illuminate\\Database\\Eloquent\\Builder<[a-zA-Z0-9\\_]+>::unsearchable\(\)#'
+#        - message: '#Call to an undefined method Illuminate\\Database\\Eloquent\\Builder<[a-zA-Z0-9\\_]+>::searchable\(\)#'
+

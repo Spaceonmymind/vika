@@ -1,0 +1,103 @@
+upstream php-app {
+    server "${COMPOSE_PROJECT_NAME}-php-fpm:9000";
+}
+server {
+    listen 80   default_server;
+    listen 8080 default_server;
+
+    gzip            on;
+    gzip_comp_level 7;
+    gzip_types      application/x-javascript application/javascript text/css;
+
+    index index.php;
+
+    charset utf-8;
+
+    root /var/www/public;
+
+    set_real_ip_from  10.0.0.0/8;
+    set_real_ip_from  172.16.0.0/12;
+    set_real_ip_from  192.168.0.0/16;
+    real_ip_recursive on;
+
+    client_max_body_size    1024M;
+    client_body_buffer_size 4M;
+
+    add_header X-Frame-Options        SAMEORIGIN;
+    add_header X-XSS-Protection       "1; mode=block";
+    add_header X-Content-Type-Options nosniff;
+    #add_header Strict-Transport-Security "max-age=31536000; preload;";
+
+    # разрешаем встраивать из любых origin
+    add_header Content-Security-Policy "frame-ancestors *" always;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # редирект на скрипт-загрузчик виджета для обратной совместимости
+    location ^~ /assets/vi_widget {
+        access_log off;
+        return     301 https://vi.admhmao.ru/build-vika-launcher/launcher.js$is_args$args;
+    }
+
+    # Разрешаем CORS для всего каталога /build-vika-launcher/
+    location ^~ /build-vika-launcher/ {
+        add_header Access-Control-Allow-Origin  "*"            always;
+        add_header Access-Control-Allow-Methods "GET, OPTIONS" always;
+        add_header Access-Control-Allow-Headers "*"            always;
+
+        if ($request_method = OPTIONS) {
+            add_header Access-Control-Max-Age 1728000                     always;
+            add_header Content-Length         0                           always;
+            add_header Content-Type           "text/plain; charset=UTF-8" always;
+            return     204;
+        }
+
+        expires    30d;
+        access_log off;
+        add_header Cache-Control "public";
+
+        # Отдаём файлы статики
+        try_files $uri =404;
+    }
+
+    location ~ ^/(app|apps|up) {
+        otel_trace         off; # Отключаем телеметрию для вебсокета
+        proxy_http_version 1.1;
+        proxy_set_header   Host               $http_host;
+        proxy_set_header   Scheme             $scheme;
+        proxy_set_header   SERVER_PORT        $server_port;
+        proxy_set_header   REMOTE_ADDR        $remote_addr;
+        proxy_set_header   X-Forwarded-For    $proxy_add_x_forwarded_for;
+        proxy_set_header   Upgrade            $http_upgrade;
+        proxy_set_header   Connection         "Upgrade";
+        proxy_pass         http://reverb:8080;
+    }
+
+    location = /favicon.ico {
+        access_log    off;
+        log_not_found off;
+    }
+    location = /robots.txt {
+        allow         all;
+        access_log    off;
+        log_not_found off;
+    }
+
+    error_page 404 /index.php;
+
+    location ~ ^/index\.php(/|$) {
+        fastcgi_pass  php-app;
+        fastcgi_index index.php;
+
+        fastcgi_param       SCRIPT_FILENAME        $realpath_root$fastcgi_script_name;
+        fastcgi_param       HTTP_X_FORWARDED_PROTO $http_x_forwarded_proto;
+        include             fastcgi_params;
+        fastcgi_hide_header X-Powered-By;
+    }
+
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
+}

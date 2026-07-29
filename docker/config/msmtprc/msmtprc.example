@@ -1,0 +1,8 @@
+# Set default values for all following accounts.
+defaults
+logfile         -
+auth            on
+keepbcc         off
+tls             on
+tls_certcheck   off
+syslog          on

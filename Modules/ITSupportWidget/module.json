@@ -1,0 +1,11 @@
+{
+    "name": "ITSupportWidget",
+    "alias": "itsupportwidget",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\ITSupportWidget\\Providers\\ITSupportWidgetServiceProvider"
+    ],
+    "files": []
+}

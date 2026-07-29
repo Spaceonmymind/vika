@@ -1,0 +1,29 @@
+{
+  "name": "nwidart/esia",
+  "description": "",
+  "authors": [
+    {
+      "name": "Nicolas Widart",
+      "email": "n.widart@gmail.com"
+    }
+  ],
+  "extra": {
+    "laravel": {
+      "providers": [],
+      "aliases": {
+      }
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Modules\\Esia\\": "app/",
+      "Modules\\Esia\\Database\\Factories\\": "database/factories/",
+      "Modules\\Esia\\Database\\Seeders\\": "database/seeders/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Modules\\Esia\\Tests\\": "tests/"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+    "name": "AbbreviationHelpWidget",
+    "alias": "abbreviationhelpwidget",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\AbbreviationHelpWidget\\Providers\\AbbreviationHelpWidgetServiceProvider"
+    ],
+    "files": []
+}

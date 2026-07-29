@@ -1,0 +1,623 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-ExtraLight.eot');
+    src: local('Montserrat ExtraLight'), local('Montserrat-ExtraLight'),
+    url('../fonts/Montserrat/Montserrat-ExtraLight.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Montserrat/Montserrat-ExtraLight.woff2') format('woff2'),
+    url('../fonts/Montserrat/Montserrat-ExtraLight.woff') format('woff'),
+    url('../fonts/Montserrat/Montserrat-ExtraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-MediumItalic.eot');
+    src: local('Montserrat Medium Italic'), local('Montserrat-MediumItalic'),
+    url('../fonts/Montserrat/Montserrat-MediumItalic.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Montserrat/Montserrat-MediumItalic.woff2') format('woff2'),
+    url('../fonts/Montserrat/Montserrat-MediumItalic.woff') format('woff'),
+    url('../fonts/Montserrat/Montserrat-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-Italic.eot');
+    src: local('Montserrat Italic'), local('Montserrat-Italic'),
+    url('../fonts/Montserrat/Montserrat-Italic.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Montserrat/Montserrat-Italic.woff2') format('woff2'),
+    url('../fonts/Montserrat/Montserrat-Italic.woff') format('woff'),
+    url('../fonts/Montserrat/Montserrat-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-Regular.eot');
+    src: local('Montserrat Regular'), local('Montserrat-Regular'),
+    url('../fonts/Montserrat/Montserrat-Regular.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Montserrat/Montserrat-Regular.woff2') format('woff2'),
+    url('../fonts/Montserrat/Montserrat-Regular.woff') format('woff'),
+    url('../fonts/Montserrat/Montserrat-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-ThinItalic.eot');
+    src: local('Montserrat Thin Italic'), local('Montserrat-ThinItalic'),
+    url('../fonts/Montserrat/Montserrat-ThinItalic.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Montserrat/Montserrat-ThinItalic.woff2') format('woff2'),
+    url('../fonts/Montserrat/Montserrat-ThinItalic.woff') format('woff'),
+    url('../fonts/Montserrat/Montserrat-ThinItalic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-Bold.eot');
+    src: local('Montserrat Bold'), local('Montserrat-Bold'),
+    url('../fonts/Montserrat/Montserrat-Bold.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Montserrat/Montserrat-Bold.woff2') format('woff2'),
+    url('../fonts/Montserrat/Montserrat-Bold.woff') format('woff'),
+    url('../fonts/Montserrat/Montserrat-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-Light.eot');
+    src: local('Montserrat Light'), local('Montserrat-Light'),
+    url('../fonts/Montserrat/Montserrat-Light.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Montserrat/Montserrat-Light.woff2') format('woff2'),
+    url('../fonts/Montserrat/Montserrat-Light.woff') format('woff'),
+    url('../fonts/Montserrat/Montserrat-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-Black.eot');
+    src: local('Montserrat Black'), local('Montserrat-Black'),
+    url('../fonts/Montserrat/Montserrat-Black.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Montserrat/Montserrat-Black.woff2') format('woff2'),
+    url('../fonts/Montserrat/Montserrat-Black.woff') format('woff'),
+    url('../fonts/Montserrat/Montserrat-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-Medium.eot');
+    src: local('Montserrat Medium'), local('Montserrat-Medium'),
+    url('../fonts/Montserrat/Montserrat-Medium.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Montserrat/Montserrat-Medium.woff2') format('woff2'),
+    url('../fonts/Montserrat/Montserrat-Medium.woff') format('woff'),
+    url('../fonts/Montserrat/Montserrat-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-ExtraLightItalic.eot');
+    src: local('Montserrat ExtraLight Italic'), local('Montserrat-ExtraLightItalic'),
+    url('../fonts/Montserrat/Montserrat-ExtraLightItalic.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Montserrat/Montserrat-ExtraLightItalic.woff2') format('woff2'),
+    url('../fonts/Montserrat/Montserrat-ExtraLightItalic.woff') format('woff'),
+    url('../fonts/Montserrat/Montserrat-ExtraLightItalic.ttf') format('truetype');
+    font-weight: 200;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-BlackItalic.eot');
+    src: local('Montserrat Black Italic'), local('Montserrat-BlackItalic'),
+    url('../fonts/Montserrat/Montserrat-BlackItalic.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Montserrat/Montserrat-BlackItalic.woff2') format('woff2'),
+    url('../fonts/Montserrat/Montserrat-BlackItalic.woff') format('woff'),
+    url('../fonts/Montserrat/Montserrat-BlackItalic.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-ExtraBoldItalic.eot');
+    src: local('Montserrat ExtraBold Italic'), local('Montserrat-ExtraBoldItalic'),
+    url('../fonts/Montserrat/Montserrat-ExtraBoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Montserrat/Montserrat-ExtraBoldItalic.woff2') format('woff2'),
+    url('../fonts/Montserrat/Montserrat-ExtraBoldItalic.woff') format('woff'),
+    url('../fonts/Montserrat/Montserrat-ExtraBoldItalic.ttf') format('truetype');
+    font-weight: 800;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-SemiBoldItalic.eot');
+    src: local('Montserrat SemiBold Italic'), local('Montserrat-SemiBoldItalic'),
+    url('../fonts/Montserrat/Montserrat-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Montserrat/Montserrat-SemiBoldItalic.woff2') format('woff2'),
+    url('../fonts/Montserrat/Montserrat-SemiBoldItalic.woff') format('woff'),
+    url('../fonts/Montserrat/Montserrat-SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-ExtraBold.eot');
+    src: local('Montserrat ExtraBold'), local('Montserrat-ExtraBold'),
+    url('../fonts/Montserrat/Montserrat-ExtraBold.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Montserrat/Montserrat-ExtraBold.woff2') format('woff2'),
+    url('../fonts/Montserrat/Montserrat-ExtraBold.woff') format('woff'),
+    url('../fonts/Montserrat/Montserrat-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-BoldItalic.eot');
+    src: local('Montserrat Bold Italic'), local('Montserrat-BoldItalic'),
+    url('../fonts/Montserrat/Montserrat-BoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Montserrat/Montserrat-BoldItalic.woff2') format('woff2'),
+    url('../fonts/Montserrat/Montserrat-BoldItalic.woff') format('woff'),
+    url('../fonts/Montserrat/Montserrat-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-LightItalic.eot');
+    src: local('Montserrat Light Italic'), local('Montserrat-LightItalic'),
+    url('../fonts/Montserrat/Montserrat-LightItalic.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Montserrat/Montserrat-LightItalic.woff2') format('woff2'),
+    url('../fonts/Montserrat/Montserrat-LightItalic.woff') format('woff'),
+    url('../fonts/Montserrat/Montserrat-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-SemiBold.eot');
+    src: local('Montserrat SemiBold'), local('Montserrat-SemiBold'),
+    url('../fonts/Montserrat/Montserrat-SemiBold.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Montserrat/Montserrat-SemiBold.woff2') format('woff2'),
+    url('../fonts/Montserrat/Montserrat-SemiBold.woff') format('woff'),
+    url('../fonts/Montserrat/Montserrat-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('../fonts/Montserrat/Montserrat-Thin.eot');
+    src: local('Montserrat Thin'), local('Montserrat-Thin'),
+    url('../fonts/Montserrat/Montserrat-Thin.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/Montserrat/Montserrat-Thin.woff2') format('woff2'),
+    url('../fonts/Montserrat/Montserrat-Thin.woff') format('woff'),
+    url('../fonts/Montserrat/Montserrat-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+*{
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-width: fit-content;
+    height: 100%;
+    font-family: Montserrat, sans-serif;
+    touch-action: manipulation;
+    overscroll-behavior: none; /* отключает прокрутку фона */
+}
+
+#module-admin {
+    width: 100%;
+    height: 100%;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+.el-overlay-dialog {
+    /*overflow: initial !important;*/
+}
+
+.scroll-box {
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin: auto;
+    scrollbar-color: #c6cdde #f3f5f6;
+    scrollbar-width: thin
+}
+
+.scroll-box::-webkit-scrollbar-button {
+    background-repeat: no-repeat;
+    width: 10px;
+    height: 0
+}
+
+.scroll-box::-webkit-scrollbar-track {
+    background-color: #f3f5f6;
+    border-radius: 10px;
+    width: 10px
+}
+
+.scroll-box::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #c6cdde
+}
+
+.scroll-box::-webkit-resizer {
+    width: 10px;
+    height: 0
+}
+
+.scroll-box::-webkit-scrollbar {
+    width: 10px;
+    height: 6px
+}
+
+
+.el-picker-panel__icon-btn {
+    margin-top: 4px !important;
+}
+
+.el-select-dropdown__item {
+    font-family: Montserrat, sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 15px !important;
+    height: fit-content !important;
+    min-height: 40px !important;
+    line-height: 150% !important;
+    display: flex;
+    align-items: center;
+    white-space: normal !important;
+    padding: 10px 32px 10px 20px !important;
+}
+
+:root {
+    --vika-link-color: #272626;
+    --vika-ico-color: #8d8d8d;
+    /* --vika-active-color: #0437ba;*/
+    --vika-active-color: var(--el-color-success-dark-2)
+}
+
+#module-admin {
+    --el-color-white: #ffffff;
+    --el-color-black: #000000;
+    --el-color-primary-rgb: 64, 158, 255;
+    --el-color-success-rgb: 103, 194, 58;
+    --el-color-warning-rgb: 230, 162, 60;
+    --el-color-danger-rgb: 245, 108, 108;
+    --el-color-error-rgb: 245, 108, 108;
+    --el-color-info-rgb: 144, 147, 153;
+    --el-font-size-extra-large: 20px;
+    --el-font-size-large: 18px;
+    --el-font-size-medium: 16px;
+    --el-font-size-base: 14px;
+    --el-font-size-small: 13px;
+    --el-font-size-extra-small: 12px;
+    --el-font-family: 'Montserrat', sans-serif;
+    --el-font-weight-primary: 500;
+    --el-font-line-height-primary: 24px;
+    --el-index-normal: 1;
+    --el-index-top: 1000;
+    --el-index-popper: 2000;
+    --el-border-radius-base: 12px;
+    --el-border-radius-small: 2px;
+    --el-border-radius-round: 20px;
+    --el-border-radius-circle: 100%;
+    --el-transition-duration: 0.3s;
+    --el-transition-duration-fast: 0.2s;
+    --el-transition-function-ease-in-out-bezier: cubic-bezier(0.645, 0.045, 0.355, 1);
+    --el-transition-function-fast-bezier: cubic-bezier(0.23, 1, 0.32, 1);
+    --el-transition-all: all var(--el-transition-duration) var(--el-transition-function-ease-in-out-bezier);
+    --el-transition-fade: opacity var(--el-transition-duration) var(--el-transition-function-fast-bezier);
+    --el-transition-md-fade: transform var(--el-transition-duration) var(--el-transition-function-fast-bezier), opacity var(--el-transition-duration) var(--el-transition-function-fast-bezier);
+    --el-transition-fade-linear: opacity var(--el-transition-duration-fast) linear;
+    --el-transition-border: border-color var(--el-transition-duration-fast) var(--el-transition-function-ease-in-out-bezier);
+    --el-transition-box-shadow: box-shadow var(--el-transition-duration-fast) var(--el-transition-function-ease-in-out-bezier);
+    --el-transition-color: color var(--el-transition-duration-fast) var(--el-transition-function-ease-in-out-bezier);
+    --el-component-size-large: 48px;
+    --el-component-size: 32px;
+    --el-component-size-small: 24px;
+    color-scheme: light;
+    --el-color-primary: #25A5CD;
+    --el-color-primary-light-3: rgba(37, 165, 205, 0.66);
+    --el-color-primary-light-5: rgb(37, 165, 205, 0.46);
+    --el-color-primary-light-7: rgb(37, 165, 205, 0.26);
+    --el-color-primary-light-8: rgb(37, 165, 205, 0.16);
+    --el-color-primary-light-9: rgb(37, 165, 205, 0.1);
+    --el-color-primary-dark-2: #3D97B3;
+    --el-color-success: #44AA61;
+    --el-color-success-light-3: rgb(68, 170, 97, 0.66);
+    --el-color-success-light-5: rgb(68, 170, 97, 0.46);
+    --el-color-success-light-7: rgb(68, 170, 97, 0.26);
+    --el-color-success-light-8: rgb(68, 170, 97, 0.16);
+    --el-color-success-light-9: rgb(68, 170, 97, 0.1);
+    --el-color-success-dark-2: #3F841A;
+    --el-color-warning: #F19C38;
+    --el-color-warning-light-3: rgb(241, 156, 56, 0.66);
+    --el-color-warning-light-5: rgb(241, 156, 56, 0.46);
+    --el-color-warning-light-7: rgb(241, 156, 56, 0.26);
+    --el-color-warning-light-8: rgb(241, 156, 56, 0.16);
+    --el-color-warning-light-9: rgb(241, 156, 56, 0.1);
+    --el-color-warning-dark-2: #C9822F;
+    --el-color-danger: #E14D4D;
+    --el-color-danger-light-3: rgb(225, 77, 77, 0.66);
+    --el-color-danger-light-5: rgb(225, 77, 77, 0.46);
+    --el-color-danger-light-7: rgb(225, 77, 77, 0.26);
+    --el-color-danger-light-8: rgb(225, 77, 77, 0.16);
+    --el-color-danger-light-9: rgb(225, 77, 77, 0.1);
+    --el-color-danger-dark-2: #BC4040;
+    --el-color-error: #f56c6c;
+    --el-color-error-light-3: rgb(225, 77, 77, 0.66);
+    --el-color-error-light-5: rgb(225, 77, 77, 0.46);
+    --el-color-error-light-7: rgb(225, 77, 77, 0.26);
+    --el-color-error-light-8: rgb(225, 77, 77, 0.16);
+    --el-color-error-light-9: rgb(225, 77, 77, 0.1);
+    --el-color-error-dark-2: #941515;
+    --el-color-info: #C0C5CE;
+    --el-color-info-light-3: rgb(192, 197, 206, 0.66);
+    --el-color-info-light-5: rgb(192, 197, 206, 0.46);
+    --el-color-info-light-7: rgb(192, 197, 206, 0.26);
+    --el-color-info-light-8: rgb(192, 197, 206, 0.16);
+    --el-color-info-light-9: rgb(192, 197, 206, 0.1);
+    --el-color-info-dark-2: #868B93;
+    --el-bg-color: #ffffff;
+    --el-bg-color-page: #f2f3f5;
+    --el-bg-color-overlay: #ffffff;
+    --el-text-color-primary: #303133;
+    --el-text-color-regular: #606266;
+    --el-text-color-secondary: #909399;
+    --el-text-color-placeholder: #a8abb2;
+    --el-text-color-disabled: #c0c4cc;
+    --el-border-color: #dcdfe6;
+    --el-border-color-light: #e4e7ed;
+    --el-border-color-lighter: #ebeef5;
+    --el-border-color-extra-light: #f2f6fc;
+    --el-border-color-dark: #d4d7de;
+    --el-border-color-darker: #cdd0d6;
+    --el-fill-color: #f0f2f5;
+    --el-fill-color-light: #f5f7fa;
+    --el-fill-color-lighter: #fafafa;
+    --el-fill-color-extra-light: #fafcff;
+    --el-fill-color-dark: #ebedf0;
+    --el-fill-color-darker: #e6e8eb;
+    --el-fill-color-blank: #ffffff;
+    --el-box-shadow: 0px 12px 32px 4px rgba(0, 0, 0, 0.04), 0px 8px 20px rgba(0, 0, 0, 0.08);
+    --el-box-shadow-light: 0px 0px 12px rgba(0, 0, 0, 0.12);
+    --el-box-shadow-lighter: 0px 0px 6px rgba(0, 0, 0, 0.12);
+    --el-box-shadow-dark: 0px 16px 48px 16px rgba(0, 0, 0, 0.08), 0px 12px 32px rgba(0, 0, 0, 0.12), 0px 8px 16px -8px rgba(0, 0, 0, 0.16);
+    --el-disabled-bg-color: var(--el-fill-color-light);
+    --el-disabled-text-color: var(--el-text-color-placeholder);
+    --el-disabled-border-color: var(--el-border-color-light);
+    --el-overlay-color: rgba(0, 0, 0, 0.8);
+    --el-overlay-color-light: rgba(0, 0, 0, 0.7);
+    --el-overlay-color-lighter: rgba(0, 0, 0, 0.5);
+    --el-mask-color: rgba(255, 255, 255, 0.9);
+    --el-mask-color-extra-light: rgba(255, 255, 255, 0.3);
+    --el-border-width: 1px;
+    --el-border-style: solid;
+    --el-border-color-hover: var(--el-text-color-disabled);
+    --el-border: var(--el-border-width) var(--el-border-style) var(--el-border-color);
+    --el-svg-monochrome-grey: var(--el-border-color);
+}
+
+#module-admin .white-box {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(27, 54, 74, 0.03);
+    padding: 20px;
+}
+
+#module-admin .el-input__inner {
+    font-family: 'Montserrat', sans-serif;
+}
+
+#module-admin .el-button {
+    font-family: 'Montserrat', sans-serif;
+}
+
+#module-admin .el-select--large .el-select__wrapper {
+    min-height: 48px;
+}
+
+#module-admin .el-button--large {
+    --el-button-size: 48px;
+}
+
+#module-admin .el-button + .el-button {
+    margin-left: 0;
+}
+
+
+.is-error.el-input .el-input__wrapper,
+.is-error.el-select .el-select__wrapper,
+.is-error.el-textarea .el-textarea__inner
+{
+    box-shadow: 0 0 0 1px var(--el-color-danger) inset;
+}
+
+.el-form-item__error {
+    color: var(--el-color-danger);
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.el-date-editor .el-range-input{
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+.icon {
+    position: relative;
+    width: 38px;
+    min-width: 38px;
+    height: 42px;
+    mask-image: url("../vi-icons/icon-bg.svg");
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: 38px;
+}
+
+.icon .grad {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background: #ccc;
+    transition: 0.3s ease;
+}
+
+.icon::after {
+    content: "";
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: 18px !important;
+    filter: brightness(0) invert(1);
+    background: url("../vi-icons/cat-other.svg");
+}
+
+.icon.cat-support::after {
+    background: url("../vi-icons/cat-support.svg");
+    background-size: 8px !important;
+}
+
+.icon.cat-healthcare::after {
+    background: url("../vi-icons/cat-healthcare.svg");
+}
+
+.icon.cat-education::after {
+    background: url("../vi-icons/cat-education.svg");
+}
+
+.icon.cat-other::after {
+    background: url("../vi-icons/cat-other.svg");
+}
+
+.icon.vi-gas::after {
+    background: url("../vi-icons/vi-gas.svg");
+}
+
+.icon.vi-book::after {
+    background: url("../vi-icons/vi-book.svg");
+}
+
+.icon.vi-calendar::after {
+    background: url("../vi-icons/vi-calendar.svg");
+    background-size: 14px !important;
+}
+
+.icon.vi-social::after {
+    background: url("../vi-icons/vi-social.svg");
+}
+
+.icon.vi-aktir::after {
+    background: url("../vi-icons/vi-aktir.svg");
+}
+
+.icon.vi-migrant::after {
+    background: url("../vi-icons/vi-migrant.png");
+}
+
+.icon.vi-med::after {
+    background: url("../vi-icons/vi-med.svg");
+}
+
+.icon.vi-sport::after {
+    background: url("../vi-icons/vi-sport.svg");
+}
+
+.icon.vi-mfc::after {
+    background: url("../vi-icons/vi-mfc.svg");
+}
+
+.icon.vi-pfr::after {
+    background: url("../vi-icons/vi-pfr.svg");
+    background-size: 26px !important;
+    filter: initial !important;
+}
+
+.icon.vi-culture::after {
+    background: url("../vi-icons/vi-culture.png");
+}
+
+.icon.vi-team-yugra::after {
+    background: url("../vi-icons/vi-team-yugra.svg");
+    filter: initial !important;
+}
+
+.icon.archive::after {
+    background: url("../vi-icons/archive.svg");
+}
+
+.icon.vi-goskey::after {
+    background: url("../vi-icons/vi-goskey.svg");
+}
+
+.icon.vi-vetclinic::after {
+    background: url("../vi-icons/vi-vetclinic.svg");
+}
+
+.icon.vi-dgz::after {
+    background: url("../vi-icons/vi-dgz.svg");
+}
+
+.icon.vi-abbreviation::after {
+    background: url("../vi-icons/vi-abbreviation.svg");
+}
+
+.icon.vi-location::after {
+    background: url("../vi-icons/vi-location.svg");
+}
+
+.icon.vi-social-services::after {
+    background: url("../vi-icons/vi-social-services.svg");
+}
+
+.icon.vi-jkh::after {
+    background: url("../vi-icons/vi-jkh.svg");
+}
+
+.table-box {
+    width: 100%;
+    display: grid;
+}
+
+
+
+
+
+
+

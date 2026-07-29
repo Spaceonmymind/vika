@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/mfcapplicationstatuscheckwidget",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\MFCApplicationStatusCheckWidget\\": "app/",
+            "Modules\\MFCApplicationStatusCheckWidget\\Database\\Factories\\": "database/factories/",
+            "Modules\\MFCApplicationStatusCheckWidget\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\MFCApplicationStatusCheckWidget\\Tests\\": "tests/"
+        }
+    }
+}

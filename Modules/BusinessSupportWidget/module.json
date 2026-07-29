@@ -1,0 +1,11 @@
+{
+    "name": "BusinessSupportWidget",
+    "alias": "businesssupportwidget",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\BusinessSupportWidget\\Providers\\BusinessSupportWidgetServiceProvider"
+    ],
+    "files": []
+}

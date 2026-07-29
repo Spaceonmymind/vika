@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/sportsectionswidget",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\SportSectionsWidget\\": "app/",
+            "Modules\\SportSectionsWidget\\Database\\Factories\\": "database/factories/",
+            "Modules\\SportSectionsWidget\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\SportSectionsWidget\\Tests\\": "tests/"
+        }
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/actirovkiwidget",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\ActirovkiWidget\\": "app/",
+            "Modules\\ActirovkiWidget\\Database\\Factories\\": "database/factories/",
+            "Modules\\ActirovkiWidget\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\ActirovkiWidget\\Tests\\": "tests/"
+        }
+    }
+}

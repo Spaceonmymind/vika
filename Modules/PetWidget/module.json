@@ -1,0 +1,11 @@
+{
+    "name": "PetWidget",
+    "alias": "petwidget",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\PetWidget\\Providers\\PetWidgetServiceProvider"
+    ],
+    "files": []
+}

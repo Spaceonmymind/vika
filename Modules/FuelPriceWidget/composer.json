@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/fuelpricewidget",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\FuelPriceWidget\\": "app/",
+            "Modules\\FuelPriceWidget\\Database\\Factories\\": "database/factories/",
+            "Modules\\FuelPriceWidget\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\FuelPriceWidget\\Tests\\": "tests/"
+        }
+    }
+}

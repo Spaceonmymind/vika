@@ -1,0 +1,17 @@
+{
+    "name": "FuelPriceWidget",
+    "is_widget": true,
+    "russian_name": "Цены на топливо",
+    "vika_types": [
+        "main",
+        "dit"
+    ],
+    "alias": "fuelpricewidget",
+    "description": "Цены на топливо",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\FuelPriceWidget\\Providers\\FuelPriceWidgetServiceProvider"
+    ],
+    "files": []
+}

@@ -1,0 +1,44 @@
+services:
+  nginx:
+    volumes:
+      - ./config/nginx/templates:/etc/nginx/templates
+      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ../:/var/www:cached
+
+  php-fpm:
+    volumes:
+      - ./config/php/php.ini-production:/usr/local/etc/php/php.ini:ro
+      - ./config/php/conf.d/config.ini-production:/usr/local/etc/php/conf.d/common/config.ini:ro
+      - ./config/php/php-fpm.d/zzz-custom.conf:/usr/local/etc/php-fpm.d/zzz-custom.conf:ro
+      - ./config/msmtprc:/etc/msmtprc:ro
+      - ../:/var/www:cached
+    pull_policy: never
+    user: "${UID}:${GID}"
+
+  reverb:
+    volumes_from:
+      - php-fpm
+    pull_policy: never
+    volumes:
+      - ./bin/healthcheck-reverb:/usr/local/bin/healthcheck-reverb:ro
+    user: "${UID}:${GID}"
+
+  horizon:
+    volumes_from:
+      - php-fpm
+    pull_policy: never
+    volumes:
+      - ./bin/healthcheck-horizon:/usr/local/bin/healthcheck-horizon:ro
+    user: "${UID}:${GID}"
+
+  schedule:
+    volumes_from:
+      - php-fpm
+    pull_policy: never
+    volumes:
+      - ./bin/healthcheck-schedule:/usr/local/bin/healthcheck-schedule:ro
+    user: "${UID}:${GID}"
+
+  vikasearch:
+    image: ${IMAGE_TAG_VIKASEARCH}
+    pull_policy: never

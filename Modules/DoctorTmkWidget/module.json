@@ -1,0 +1,11 @@
+{
+  "name": "DoctorTmkWidget",
+  "alias": "doctortmkwidget",
+  "description": "",
+  "keywords": [],
+  "priority": 0,
+  "providers": [
+    "Modules\\DoctorTmkWidget\\Providers\\DoctorTmkWidgetServiceProvider"
+  ],
+  "files": []
+}

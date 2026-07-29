@@ -1,0 +1,11 @@
+{
+    "name": "GosZakupkiWidget",
+    "alias": "goszakupkiwidget",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\GosZakupkiWidget\\Providers\\GosZakupkiWidgetServiceProvider"
+    ],
+    "files": []
+}

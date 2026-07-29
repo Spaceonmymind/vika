@@ -1,0 +1,11 @@
+{
+    "name": "MFCApplicationStatusCheckWidget",
+    "alias": "mfcapplicationstatuscheckwidget",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\MFCApplicationStatusCheckWidget\\Providers\\MFCApplicationStatusCheckWidgetServiceProvider"
+    ],
+    "files": []
+}

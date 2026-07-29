@@ -1,0 +1,11 @@
+{
+    "name": "ActirovkiWidget",
+    "alias": "actirovkiwidget",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\ActirovkiWidget\\Providers\\ActirovkiWidgetServiceProvider"
+    ],
+    "files": []
+}

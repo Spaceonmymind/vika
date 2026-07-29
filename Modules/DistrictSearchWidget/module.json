@@ -1,0 +1,11 @@
+{
+    "name": "DistrictSearchWidget",
+    "alias": "districtsearchwidget",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\DistrictSearchWidget\\Providers\\DistrictSearchWidgetServiceProvider"
+    ],
+    "files": []
+}

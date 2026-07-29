@@ -1,0 +1,40 @@
+date.timezone = ${PHP_TIMEZONE}
+display_errors = On
+log_errors = On
+
+# mbstring.func_overload = 2
+# mbstring.internal_encoding = 'UTF-8'
+
+opcache.enable = 1
+opcache.enable_cli = 1
+
+opcache.memory_consumption = 256
+opcache.interned_strings_buffer = 64
+opcache.max_accelerated_files = 100000
+
+opcache.max_file_size = 0
+
+# 1 для разработки, 0 для релиза
+opcache.validate_timestamps = 0
+opcache.revalidate_freq = 0
+
+opcache.huge_code_pages = 1
+
+opcache.fast_shutdown = 1
+opcache.force_restart_timeout = 60
+opcache.file_update_protection = 10
+
+#opcache.preload=/var/www/preload.php
+
+# jit
+opcache.jit = tracing
+opcache.jit_buffer_size = 256M
+
+pcre.jit = On
+
+realpath_cache_size = 16M
+realpath_cache_ttl = 3600
+
+short_open_tag = On
+
+session.gc_probability = 1

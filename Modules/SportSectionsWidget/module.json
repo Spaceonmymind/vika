@@ -1,0 +1,16 @@
+{
+  "name": "SportSectionsWidget",
+  "is_widget": true,
+  "russian_name": "Спортивные секции",
+  "vika_types": [
+    "main"
+  ],
+  "alias": "sportsectionswidget",
+  "description": "Виджет спортивных секций",
+  "keywords": [],
+  "priority": 0,
+  "providers": [
+    "Modules\\SportSectionsWidget\\Providers\\SportSectionsWidgetServiceProvider"
+  ],
+  "files": []
+}

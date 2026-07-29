@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/businesssupportwidget",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\BusinessSupportWidget\\": "app/",
+            "Modules\\BusinessSupportWidget\\Database\\Factories\\": "database/factories/",
+            "Modules\\BusinessSupportWidget\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\BusinessSupportWidget\\Tests\\": "tests/"
+        }
+    }
+}

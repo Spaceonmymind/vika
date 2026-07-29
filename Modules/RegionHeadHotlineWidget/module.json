@@ -1,0 +1,11 @@
+{
+    "name": "RegionHeadHotlineWidget",
+    "alias": "regionheadhotlinewidget",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\RegionHeadHotlineWidget\\Providers\\RegionHeadHotlineWidgetServiceProvider"
+    ],
+    "files": []
+}

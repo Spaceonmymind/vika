@@ -1,0 +1,11 @@
+{
+  "name": "Vika",
+  "alias": "vika",
+  "description": "",
+  "keywords": [],
+  "priority": 0,
+  "providers": [
+    "Modules\\Vika\\Providers\\VikaServiceProvider"
+  ],
+  "files": []
+}

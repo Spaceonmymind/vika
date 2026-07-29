@@ -1,0 +1,64 @@
+<?php
+
+namespace Modules\Chat\Swagger\Docs\Attributes\AdminIntentController;
+
+
+use Attribute;
+use OpenApi\Attributes as OA;
+
+#[Attribute]
+class AddTestRequestTotIntent extends OA\Post
+{
+    public function __construct()
+    {
+        parent::__construct(
+            path: '/api/admin/chat/intents/{intent}/test_requests/create',
+            operationId: 'addTestRequest',
+            summary: 'Добавить пример вопроса к инетенту',
+            tags: ['AdminIntentController'],
+            parameters: [
+                new OA\Parameter(
+                    name: 'intent',
+                    in: 'path',
+                    required: true,
+                    schema: new OA\Schema(type: 'integer'),
+                    description: 'ID интента',
+                    example: 51
+                ),
+            ],
+            requestBody: new OA\RequestBody(
+                content: new OA\MediaType(
+                    mediaType: 'application/json',
+                    schema: new OA\Schema(
+                        required: ['text'],
+                        properties: [
+                            new OA\Property(
+                                property: 'text',
+                                type: 'string',
+                                description: 'Текст примера вопроса',
+                                example: 'хочу какать'
+                            ),
+                        ]
+                    )
+                )
+            ),
+            responses: [
+                new OA\Response(
+                    response: 200,
+                    description: 'Successful operation',
+                    content: new OA\JsonContent(
+                        type: 'object',
+                        properties: [
+                            new OA\Property(
+                                property: 'success',
+                                description: 'Успешность выполнения операции',
+                                type: 'boolean',
+                                example: true
+                            ),
+                        ],
+                    ),
+                ),
+            ],
+        );
+    }
+}

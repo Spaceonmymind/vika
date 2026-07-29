@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/pfrhelpwidget",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\PfrHelpWidget\\": "app/",
+            "Modules\\PfrHelpWidget\\Database\\Factories\\": "database/factories/",
+            "Modules\\PfrHelpWidget\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\PfrHelpWidget\\Tests\\": "tests/"
+        }
+    }
+}

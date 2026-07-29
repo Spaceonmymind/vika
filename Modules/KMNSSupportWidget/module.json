@@ -1,0 +1,11 @@
+{
+    "name": "KMNSSupportWidget",
+    "alias": "kmnssupportwidget",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\KMNSSupportWidget\\Providers\\KMNSSupportWidgetServiceProvider"
+    ],
+    "files": []
+}

@@ -1,0 +1,29 @@
+{
+  "name": "nwidart/vika",
+  "description": "",
+  "authors": [
+    {
+      "name": "Nicolas Widart",
+      "email": "n.widart@gmail.com"
+    }
+  ],
+  "extra": {
+    "laravel": {
+      "providers": [],
+      "aliases": {
+      }
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "Modules\\Vika\\": "app/",
+      "Modules\\Vika\\Database\\Factories\\": "database/factories/",
+      "Modules\\Vika\\Database\\Seeders\\": "database/seeders/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Modules\\Vika\\Tests\\": "tests/"
+    }
+  }
+}

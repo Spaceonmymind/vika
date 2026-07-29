@@ -1,0 +1,11 @@
+{
+    "name": "PfrHelpWidget",
+    "alias": "pfrhelpwidget",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\PfrHelpWidget\\Providers\\PfrHelpWidgetServiceProvider"
+    ],
+    "files": []
+}

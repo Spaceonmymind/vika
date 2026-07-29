@@ -1,0 +1,16 @@
+{
+    "name": "TimetableWidget",
+    "is_widget": true,
+    "russian_name": "Статус сотрудника ИО",
+    "vika_types": [
+        "dit"
+    ],
+    "alias": "timetablewidget",
+    "description": "Отображает статус сотрудника ИО",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\TimetableWidget\\Providers\\TimetableWidgetServiceProvider"
+    ],
+    "files": []
+}

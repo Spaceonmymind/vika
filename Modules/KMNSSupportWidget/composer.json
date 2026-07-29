@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/kmnssupportwidget",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\KMNSSupportWidget\\": "app/",
+            "Modules\\KMNSSupportWidget\\Database\\Factories\\": "database/factories/",
+            "Modules\\KMNSSupportWidget\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\KMNSSupportWidget\\Tests\\": "tests/"
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Esia",
+  "alias": "esia",
+  "description": "",
+  "keywords": [],
+  "priority": 0,
+  "providers": [
+    "Modules\\Esia\\Providers\\EsiaServiceProvider"
+  ],
+  "files": []
+}

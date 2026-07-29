@@ -1,0 +1,133 @@
+x-php-common: &php-common
+  image: ${IMAGE_TAG_PHP}
+  restart: always
+  env_file:
+    - ${ENV_FILE}
+  networks:
+    - vi-app
+    - ${COMPOSE_NETWORK_NAME}
+  volumes:
+      - storage_app:/var/www/storage/app
+  extra_hosts:
+    - "${PROJECT_HOST}:host-gateway"
+    - "admhmansy.ru:${EXTRA_HOST_IP_ADMHMANSY:-127.0.0.1}"
+
+services:
+  nginx:
+    image: ${IMAGE_TAG_NGINX}
+    container_name: ${COMPOSE_PROJECT_NAME}-nginx
+    restart: always
+    depends_on:
+      - php-fpm
+    environment:
+      TZ: ${SERVER_TIMEZONE}
+      CONTAINER_NAME: ${COMPOSE_PROJECT_NAME}-nginx
+      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=${COMPOSE_COMMON_PROJECT_NAME}_${COMPOSE_NETWORK_NAME}"
+
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-ssl.rule=Host(`${PROJECT_HOST}`)"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-ssl.entrypoints=https"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-ssl.tls=true"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-ssl.tls.certresolver=${PROJECT_CERT_RESOLVER}"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}-ssl.middlewares=${PROJECT_SSL_MIDDLEWARES}"
+
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`${PROJECT_HOST}`)"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.entrypoints=http"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.middlewares=${PROJECT_MIDDLEWARES}"
+
+      - "traefik.http.services.${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=80"
+    volumes:
+        - storage_app:/var/www/storage/app
+    networks:
+      - vi-app
+      - ${COMPOSE_NETWORK_NAME}
+
+  php-fpm:
+    <<: *php-common
+    container_name: ${COMPOSE_PROJECT_NAME}-php-fpm
+    environment:
+      TZ: "${SERVER_TIMEZONE}"
+      PHP_INI_SCAN_DIR: /usr/local/etc/php/conf.d/common/:/usr/local/etc/php/conf.d/:/usr/local/etc/php/conf.d/site/
+      OTEL_SERVICE_NAME: ${COMPOSE_PROJECT_NAME}-php-fpm
+    external_links:
+      - ${COMPOSE_PROJECT_NAME}-nginx:${PROJECT_HOST}
+
+
+  reverb:
+    <<: *php-common
+    container_name: ${COMPOSE_PROJECT_NAME}-reverb
+    command: php artisan reverb:start --quiet
+    stop_signal: SIGTERM
+    environment:
+      TZ: "${SERVER_TIMEZONE}"
+      PHP_INI_SCAN_DIR: /usr/local/etc/php/conf.d/common/:/usr/local/etc/php/conf.d/:/usr/local/etc/php/conf.d/site/
+      OTEL_SERVICE_NAME: ${COMPOSE_PROJECT_NAME}-reverb
+    healthcheck:
+      test: [ "CMD", "healthcheck-reverb" ]
+      start_period: 30s
+    depends_on:
+      - php-fpm
+    expose:
+      - 8080
+
+  horizon:
+    <<: *php-common
+    container_name: ${COMPOSE_PROJECT_NAME}-horizon
+    command: php artisan horizon
+    stop_signal: SIGTERM
+    environment:
+      TZ: "${SERVER_TIMEZONE}"
+      PHP_INI_SCAN_DIR: /usr/local/etc/php/conf.d/common/:/usr/local/etc/php/conf.d/:/usr/local/etc/php/conf.d/site/
+      OTEL_SERVICE_NAME: ${COMPOSE_PROJECT_NAME}-horizon
+    healthcheck:
+      test: [ "CMD", "healthcheck-horizon" ]
+      start_period: 10s
+    depends_on:
+      - php-fpm
+    expose:
+      - 9001
+
+  schedule:
+    <<: *php-common
+    container_name: ${COMPOSE_PROJECT_NAME}-schedule
+    command: [ "/bin/sh", "-c", "while true; do php artisan schedule:run --whisper; sleep 60; done" ]
+    stop_signal: SIGTERM
+    environment:
+      TZ: "${SERVER_TIMEZONE}"
+      PHP_INI_SCAN_DIR: /usr/local/etc/php/conf.d/common/:/usr/local/etc/php/conf.d/:/usr/local/etc/php/conf.d/site/
+    healthcheck:
+      test: [ "CMD", "healthcheck-schedule" ]
+      start_period: 10s
+    depends_on:
+      - php-fpm
+
+  vikasearch:
+    image: registry.ugraphic.ru/vi/vikasearch/vikasearch:latest
+    container_name: ${COMPOSE_PROJECT_NAME}-vikasearch
+    restart: always
+    env_file: ${ENV_FILE}
+    depends_on:
+      - vikasearch-db
+    networks:
+      - ${COMPOSE_NETWORK_NAME}
+
+  vikasearch-db:
+    image: pgvector/pgvector:pg16
+    container_name: ${COMPOSE_PROJECT_NAME}-vikasearch-db
+    env_file: ${ENV_FILE}
+    restart: always
+    networks:
+      - ${COMPOSE_NETWORK_NAME}
+
+networks:
+  vi-app:
+    name: ${COMPOSE_PROJECT_NAME}_vi-app
+  vi:
+    external: true
+    name: ${COMPOSE_COMMON_PROJECT_NAME}_${COMPOSE_NETWORK_NAME}
+
+volumes:
+    storage_app:
+        name: ${COMPOSE_PROJECT_NAME}-storage-app

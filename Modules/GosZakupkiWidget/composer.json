@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/goszakupkiwidget",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\GosZakupkiWidget\\": "app/",
+            "Modules\\GosZakupkiWidget\\Database\\Factories\\": "database/factories/",
+            "Modules\\GosZakupkiWidget\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\GosZakupkiWidget\\Tests\\": "tests/"
+        }
+    }
+}

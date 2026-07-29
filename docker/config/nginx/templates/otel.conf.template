@@ -1,0 +1,8 @@
+otel_exporter {
+    # 4317 - grpc
+    # 4318 - http/binary
+    endpoint alloy:4317;
+}
+otel_service_name  ${CONTAINER_NAME};
+otel_trace         on;
+otel_trace_context propagate;

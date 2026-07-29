@@ -1,0 +1,11 @@
+{
+    "name": "SocialSupportWidget",
+    "alias": "socialsupportwidget",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\SocialSupportWidget\\Providers\\SocialSupportWidgetServiceProvider"
+    ],
+    "files": []
+}

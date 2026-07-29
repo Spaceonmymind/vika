@@ -1,0 +1,17 @@
+{
+    "name": "PhoneBookWidget",
+    "is_widget": true,
+    "russian_name": "Телефонный справочник",
+    "vika_types": [
+        "main",
+        "dit"
+    ],
+    "alias": "phonebookwidget",
+    "description": "Телефонный справочник номеров гос аппарата",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\PhoneBookWidget\\Providers\\PhoneBookWidgetServiceProvider"
+    ],
+    "files": []
+}

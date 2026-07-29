@@ -1,0 +1,12 @@
+{
+    "name": "Chat",
+    "alias": "chat",
+    "is_widget": false,
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Chat\\Providers\\ChatServiceProvider"
+    ],
+    "files": []
+}

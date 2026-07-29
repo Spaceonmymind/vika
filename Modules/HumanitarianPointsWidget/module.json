@@ -1,0 +1,11 @@
+{
+    "name": "HumanitarianPointsWidget",
+    "alias": "humanitarianpointswidget",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\HumanitarianPointsWidget\\Providers\\HumanitarianPointsWidgetServiceProvider"
+    ],
+    "files": []
+}

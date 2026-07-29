@@ -1,0 +1,501 @@
+variables:
+  DOCKERFILE_PHP_FPM: "${CI_PROJECT_DIR}/docker/images/php-fpm/Dockerfile"
+  DOCKERFILE_NGINX: "${CI_PROJECT_DIR}/docker/images/nginx/Dockerfile"
+  IMAGE_TAG_PHP: ${CI_REGISTRY_IMAGE}/php-fpm:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+  IMAGE_TAG_NGINX: ${CI_REGISTRY_IMAGE}/nginx:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA
+
+include:
+  - template: Jobs/Container-Scanning.gitlab-ci.yml
+  - local: /.gitlab-ci/templates/Kaniko.gitlab-ci.yml
+
+stages:
+  - dependencies
+  - lint
+  - pre-build
+  - build
+  - scan
+  - deploy
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: always
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
+    - if: $CI_COMMIT_BRANCH == "dev"
+      when: always
+  auto_cancel:
+    on_new_commit: interruptible
+    on_job_failure: all
+
+# Helpers to keep fallback logic DRY
+.ensure_vendor_dev: &ensure_vendor_dev |
+  if [ -d vendor ] && [ "$(ls -A vendor)" ]; then
+    echo "vendor найден, используем кэш";
+  else
+    echo "vendor отсутствует, устанавливаем dev-зависимости";
+    composer config -g cache-dir "./.composer-cache";
+    composer install --prefer-dist --no-progress;
+  fi
+
+.ensure_vendor_no_dev: &ensure_vendor_no_dev |
+  if [ -d vendor ] && [ "$(ls -A vendor)" ]; then
+    echo "vendor найден, используем кэш";
+  else
+    echo "vendor отсутствует, устанавливаем prod-зависимости";
+    composer config -g cache-dir "./.composer-cache";
+    composer install --no-dev --prefer-dist --no-progress;
+  fi
+
+.ensure_node_modules_dev: &ensure_node_modules_dev |
+  if [ -d node_modules ] && [ "$(ls -A node_modules)" ]; then
+    echo "node_modules найдены, используем кэш";
+  else
+    echo "node_modules отсутствуют, устанавливаем dev-зависимости";
+    mkdir -p .npm;
+    npm ci --cache .npm --prefer-offline;
+  fi
+
+.ensure_node_modules_no_dev: &ensure_node_modules_no_dev |
+  if [ -d node_modules ] && [ "$(ls -A node_modules)" ]; then
+    echo "node_modules найдены, используем кэш";
+  else
+    echo "node_modules отсутствуют, устанавливаем prod-зависимости";
+    mkdir -p .npm;
+    npm ci --cache .npm --omit=dev --prefer-offline;
+  fi
+
+node_dependencies:with-dev:
+  stage: dependencies
+  image: node:latest
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - package.json
+        - package-lock.json
+      when: always
+    - when: never
+  cache:
+    - key:
+        files:
+          - package-lock.json
+        prefix: $CI_COMMIT_REF_SLUG-node-with-dev # Чтобы для каждой ветки был свой кэш
+      paths:
+        - node_modules/
+      when: on_success
+      policy: pull-push
+    - key: ${CI_COMMIT_REF_SLUG}-npm-with-dev
+      paths:
+        - .npm/
+      when: on_success
+      policy: pull-push
+  environment: $CI_COMMIT_REF_NAME
+  script:
+    - if [ -d node_modules ] && [ "$(ls -A node_modules)" ]; then
+      echo "Есть кэш, установка не требуется";
+      else
+      npm ci --cache .npm --prefer-offline;
+      fi
+  allow_failure: false
+
+node_dependencies:no-dev:
+  stage: dependencies
+  image: node:latest
+  rules:
+    - changes:
+        - package.json
+        - package-lock.json
+      when: always
+    - when: never
+  cache:
+    - key:
+        files:
+          - package-lock.json
+        prefix: $CI_COMMIT_REF_SLUG-node-no-dev # Чтобы для каждой ветки был свой кэш
+      paths:
+        - node_modules/
+      when: on_success
+      policy: pull-push
+    - key: ${CI_COMMIT_REF_SLUG}-npm-no-dev
+      paths:
+        - .npm/
+      when: on_success
+      policy: pull-push
+  environment: $CI_COMMIT_REF_NAME
+  script:
+    - if [ -d node_modules ] && [ "$(ls -A node_modules)" ]; then
+      echo "Есть кэш, установка не требуется";
+      else
+      npm ci --cache .npm --omit=dev --prefer-offline;
+      fi
+  allow_failure: false
+
+php_dependencies:with-dev:
+  stage: dependencies
+  image: ${CI_REGISTRY}/vi/images/laravel-php/base:latest
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - composer.json
+        - composer.lock
+      when: always
+    - when: never
+  cache:
+    - key:
+        files:
+          - composer.lock
+        prefix: ${CI_COMMIT_REF_SLUG}-composer-dev
+      paths:
+        - vendor/
+      when: on_success
+      policy: pull-push
+    - key: ${CI_COMMIT_REF_SLUG}-composer-cache
+      paths:
+        - .composer-cache/
+      when: on_success
+      policy: pull-push
+  environment: $CI_COMMIT_REF_NAME
+  before_script:
+    - composer config -g cache-dir "./.composer-cache"
+  script:
+    - if [ -d vendor ] && [ "$(ls -A vendor)" ]; then
+      echo "Есть кэш, установка не требуется";
+      composer dump-autoload;
+      else
+      composer install --prefer-dist --no-progress;
+      fi
+  allow_failure: false
+
+php_dependencies:no-dev:
+  stage: dependencies
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH || $CI_COMMIT_BRANCH == "dev"
+      changes:
+        - composer.json
+        - composer.lock
+      when: always
+    - when: never
+  interruptible: true
+  cache:
+    - key:
+        files:
+          - composer.lock
+        prefix: ${CI_COMMIT_REF_SLUG}-composer
+      paths:
+        - vendor/
+      when: on_success
+      policy: pull-push
+    - key: ${CI_COMMIT_REF_SLUG}-composer-cache
+      paths:
+        - .composer-cache/
+      when: on_success
+      policy: pull-push
+  image: ${CI_REGISTRY}/vi/images/laravel-php/base:latest
+  environment: $CI_COMMIT_REF_NAME
+  before_script:
+    - composer config -g cache-dir "./.composer-cache"
+  script:
+    - if [ -d vendor ] && [ "$(ls -A vendor)" ]; then
+      echo "Есть кэш, установка не требуется";
+      else
+      composer install --no-dev --prefer-dist --no-progress;
+      fi
+  allow_failure: false
+
+php-lint:
+  stage: lint
+  image: ${CI_REGISTRY}/vi/images/laravel-php/base:latest
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: always
+    - when: never
+  needs:
+    - job: php_dependencies:with-dev
+      optional: true
+  cache:
+    - key:
+        files:
+          - composer.lock
+        prefix: $CI_COMMIT_REF_SLUG-composer-dev
+      paths:
+        - vendor/
+      when: on_success
+      policy: pull
+  environment: $CI_COMMIT_REF_NAME
+  script:
+    - *ensure_vendor_dev
+    - ./vendor/bin/phpstan analyse --no-progress --memory-limit=2G --error-format=gitlab > gl-code-quality-report.json
+  artifacts:
+    reports:
+      codequality: gl-code-quality-report.json
+  allow_failure: false
+
+eslint:
+  stage: lint
+  image: node:latest
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: always
+    - when: never
+  needs:
+    - job: node_dependencies:with-dev
+      optional: true
+  cache:
+    - key:
+        files:
+          - package-lock.json
+        prefix: $CI_COMMIT_REF_SLUG-node-with-dev
+      paths:
+        - node_modules/
+      when: on_success
+      policy: pull
+  environment: $CI_COMMIT_REF_NAME
+  variables:
+    ESLINT_CODE_QUALITY_REPORT: gl-code-quality-report.json
+  script:
+    - *ensure_node_modules_dev
+    - npx eslint 'Modules/*/resources/js/**/*.{js,vue}' --format gitlab
+  artifacts:
+    reports:
+      codequality: $ESLINT_CODE_QUALITY_REPORT
+  allow_failure: false
+
+cache_artisan:
+  stage: pre-build
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
+    - if: $CI_COMMIT_BRANCH == "dev"
+      when: always
+  interruptible: true
+  cache:
+    - key:
+        files:
+          - composer.lock
+        prefix: ${CI_COMMIT_REF_SLUG}-composer
+      paths:
+        - vendor/
+      when: on_success
+      policy: pull
+  image: ${CI_REGISTRY}/vi/images/laravel-php/base:latest
+  environment: $CI_COMMIT_REF_NAME
+  script:
+    - *ensure_vendor_no_dev
+    - php artisan package:discover --ansi
+    - php artisan route:cache
+    - php artisan view:cache
+    - php artisan event:cache
+  artifacts:
+    paths:
+      - bootstrap/cache/
+    expire_in: 1 days
+  allow_failure: false
+
+node-build:
+  stage: pre-build
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
+    - if: $CI_COMMIT_BRANCH == "dev"
+      when: always
+  interruptible: true
+  cache:
+    - key:
+        files:
+          - package-lock.json
+        prefix: $CI_COMMIT_REF_SLUG-node-no-dev
+      paths:
+        - node_modules/
+      when: on_success
+      policy: pull
+  image: node:latest
+  needs:
+    - job: node_dependencies:no-dev
+      optional: true
+  environment: $CI_COMMIT_REF_NAME
+  before_script:
+    - cp ${ENV_FILE} .env
+  script:
+    - *ensure_node_modules_no_dev
+    - npm run build
+  artifacts:
+    paths:
+      - public/build/
+    expire_in: 1 days
+  allow_failure: false
+
+vika-launcher-build:
+  stage: pre-build
+  image: node:latest
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_BRANCH == "dev" || $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      #      changes:
+      #        - Modules/VikaLauncher/**
+      when: always
+  interruptible: true
+  cache:
+    - key:
+        files:
+          - Modules/VikaLauncher/package-lock.json
+        prefix: $CI_COMMIT_REF_SLUG-node-launcher
+      paths:
+        - Modules/VikaLauncher/node_modules/
+      when: on_success
+      policy: pull-push
+    - key: ${CI_COMMIT_REF_SLUG}-npm-launcher
+      paths:
+        - Modules/VikaLauncher/.npm/
+      when: on_success
+      policy: pull-push
+    - key: ${CI_COMMIT_REF_SLUG}-build-launcher
+      paths:
+        - public/build-vika-launcher/
+      when: on_success
+      policy: push
+  environment: $CI_COMMIT_REF_NAME
+  before_script:
+    - cp ${ENV_FILE} .env
+    - cd Modules/VikaLauncher
+  script:
+    - if [ -d node_modules ] && [ "$(ls -A node_modules)" ]; then
+      echo "Есть кэш, установка не требуется";
+      else
+      echo "Ставим зависимости";
+      npm ci --cache .npm --omit=dev --prefer-offline;
+      fi
+    - npm run build
+  allow_failure: false
+
+build-php-fpm:
+  extends: .kaniko-build
+  stage: build
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
+    - if: $CI_COMMIT_BRANCH == "dev"
+      when: always
+  interruptible: true
+  cache:
+    - key:
+        files:
+          - composer.lock
+        prefix: ${CI_COMMIT_REF_SLUG}-composer
+      paths:
+        - vendor/
+      when: on_success
+      policy: pull
+  needs:
+    - node-build
+    - cache_artisan
+  environment: $CI_COMMIT_REF_NAME
+  variables:
+    TARGET: "production"
+    DOCKERFILE_PATH: $DOCKERFILE_PHP_FPM
+    IMAGE_TAG: $IMAGE_TAG_PHP
+  allow_failure: false
+
+build-nginx:
+  extends: .kaniko-build
+  stage: build
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
+    - if: $CI_COMMIT_BRANCH == "dev"
+      when: always
+  interruptible: true
+  needs:
+    - node-build
+    - vika-launcher-build
+  cache:
+    - key: ${CI_COMMIT_REF_SLUG}-build-launcher
+      paths:
+        - public/build-vika-launcher/
+      policy: pull
+  variables:
+    TARGET: "production"
+    DOCKERFILE_PATH: $DOCKERFILE_NGINX
+    IMAGE_TAG: $IMAGE_TAG_NGINX
+  allow_failure: false
+
+container_scanning:
+  stage: scan
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
+  interruptible: true
+  needs:
+    - job: build-php-fpm
+      artifacts: false
+  variables:
+    CS_IMAGE: $IMAGE_TAG_PHP
+    CS_DOCKERFILE_PATH: $DOCKERFILE_PHP_FPM
+
+deploy:stage:
+  stage: deploy
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_BRANCH == "dev"
+      when: always
+  interruptible: true
+  tags:
+    - stage
+  environment: $CI_COMMIT_REF_NAME
+  needs:
+    - build-nginx
+    - build-php-fpm
+  dependencies: [ ] # Не грузить артефакты
+  before_script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+    - echo "php-fpm ${IMAGE_TAG_PHP}, nginx ${IMAGE_TAG_NGINX}"
+  script:
+    - docker compose --env-file $ENV_FILE pull --quiet
+    - docker compose --env-file $ENV_FILE down --remove-orphans
+    - docker compose --env-file $ENV_FILE up -d
+    - docker image prune -f || true
+    - docker compose --env-file $ENV_FILE exec php-fpm php artisan config:cache
+    - docker compose --env-file $ENV_FILE exec php-fpm php artisan migrate --force
+    - docker compose --env-file $ENV_FILE exec php-fpm php artisan db:seed
+    - docker compose --env-file $ENV_FILE exec php-fpm php artisan storage:link
+
+deploy:production:
+  stage: deploy
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: always
+  interruptible: true
+  tags:
+    - production
+  environment: $CI_COMMIT_REF_NAME
+  needs:
+    - build-nginx
+    - build-php-fpm
+  dependencies: [ ] # Не грузить артефакты
+  before_script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+    - echo "php-fpm ${IMAGE_TAG_PHP}, nginx ${IMAGE_TAG_NGINX}"
+  script:
+    - docker compose --env-file $ENV_FILE pull --quiet
+    - docker compose --env-file $ENV_FILE down --remove-orphans
+    - docker compose --env-file $ENV_FILE up -d
+    - docker image prune -f || true
+    - docker compose --env-file $ENV_FILE exec php-fpm php artisan config:cache
+    - docker compose --env-file $ENV_FILE exec php-fpm php artisan migrate --force
+    - docker compose --env-file $ENV_FILE exec php-fpm php artisan db:seed --force
+    - docker compose --env-file $ENV_FILE exec php-fpm php artisan storage:link

@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/humanitarianpointswidget",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\HumanitarianPointsWidget\\": "app/",
+            "Modules\\HumanitarianPointsWidget\\Database\\Factories\\": "database/factories/",
+            "Modules\\HumanitarianPointsWidget\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\HumanitarianPointsWidget\\Tests\\": "tests/"
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "name": "CultureUgraWidget",
+    "alias": "cultureugrawidget",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\CultureUgraWidget\\Providers\\CultureUgraWidgetServiceProvider"
+    ],
+    "files": []
+}

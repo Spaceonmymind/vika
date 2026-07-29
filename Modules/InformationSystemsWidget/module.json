@@ -1,0 +1,11 @@
+{
+    "name": "InformationSystemsWidget",
+    "alias": "informationsystemswidget",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\InformationSystemsWidget\\Providers\\InformationSystemsWidgetServiceProvider"
+    ],
+    "files": []
+}

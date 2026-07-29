@@ -26,5 +26,6 @@
     "AppointmentToDoctorWidget": true,
   "RegionHeadHotlineWidget": true,
   "Esia": true,
-  "DoctorTmkWidget": true
+  "DoctorTmkWidget": true,
+  "StopGraffiti": true
 }

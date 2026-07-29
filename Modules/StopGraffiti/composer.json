@@ -1,0 +1,16 @@
+{
+    "name": "nwidart/stopgraffiti",
+    "description": "Stop Graffiti reports integration",
+    "autoload": {
+        "psr-4": {
+            "Modules\\StopGraffiti\\": "app/",
+            "Modules\\StopGraffiti\\Database\\Factories\\": "database/factories/",
+            "Modules\\StopGraffiti\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\StopGraffiti\\Tests\\": "tests/"
+        }
+    }
+}

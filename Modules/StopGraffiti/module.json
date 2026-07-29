@@ -1,0 +1,11 @@
+{
+    "name": "StopGraffiti",
+    "alias": "stopgraffiti",
+    "description": "Управление обращениями о незаконных граффити",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\StopGraffiti\\Providers\\StopGraffitiServiceProvider"
+    ],
+    "files": []
+}

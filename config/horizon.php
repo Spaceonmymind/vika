@@ -274,6 +274,22 @@ return [
             'timeout' => 80,
             'nice' => 0,
         ],
+
+        'supervisor-stop-graffiti' => [
+            'connection' => 'redis',
+            'queue' => ['stop-graffiti-media', 'stop-graffiti-notifications'],
+            'balance' => 'auto',
+            'autoScalingStrategy' => 'time',
+            'minProcesses' => 1,
+            'maxProcesses' => 3,
+            'maxTime' => 0,
+            'maxJobs' => 0,
+            'memory' => 384,
+            'tries' => 8,
+            'sleep' => 1,
+            'timeout' => 180,
+            'nice' => 0,
+        ],
     ],
 
     'environments' => [
@@ -286,7 +302,7 @@ return [
         'local' => [
             'supervisor-default' => [
                 'maxProcesses' => 3,
-                'queue' => ['default', 'timetable', 'incoming-chat-messages-process', 'incoming-tg-chat-messages-process', 'incoming-tg-chat-messages-process', 'actirovki'],
+                'queue' => ['default', 'timetable', 'incoming-chat-messages-process', 'incoming-tg-chat-messages-process', 'incoming-tg-chat-messages-process', 'actirovki', 'stop-graffiti-media', 'stop-graffiti-notifications'],
                 'balance' => 'auto'
             ],
             'supervisor-timetable' => [
@@ -302,6 +318,10 @@ return [
                 'queue' => []
             ],
             'supervisor-actirovki' => [
+                'maxProcesses' => 0,
+                'queue' => []
+            ],
+            'supervisor-stop-graffiti' => [
                 'maxProcesses' => 0,
                 'queue' => []
             ],

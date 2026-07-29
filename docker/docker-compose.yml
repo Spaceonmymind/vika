@@ -1,5 +1,5 @@
 x-php-common: &php-common
-  image: registry.ugraphic.ru/vi/images/laravel-php/dev:latest
+  image: ${IMAGE_TAG_PHP}
   platform: linux/arm64
   env_file:
     - ../.env
@@ -121,7 +121,7 @@ services:
       - 9001
 
   vikasearch:
-    image: registry.ugraphic.ru/vi/vikasearch/vikasearch:latest
+    image: ${IMAGE_TAG_VIKASEARCH}
     container_name: ${COMPOSE_PROJECT_NAME}-vikasearch
     restart: always
     env_file:

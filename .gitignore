@@ -1,6 +1,4 @@
 **/node_modules/
-.DS_Store
-**/.DS_Store
 .env
 .env.backup
 .env.production
@@ -36,3 +34,8 @@ npm-debug.log
 stats.html
 yarn-error.log
 /public/vendor/telescope/
+
+.DS_Store
+**/.DS_Store
+.env.bak
+/storage/api-docs/api-docs.json

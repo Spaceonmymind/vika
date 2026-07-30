@@ -16,7 +16,7 @@ it('rejects an integration request without the shared token', function (): void 
 });
 
 it('stores an incoming report and its media', function (): void {
-    $this->withToken('integration-test-token')
+    $this->withHeader('X-Stop-Graffiti-Token', 'integration-test-token')
         ->postJson('/api/integrations/stop-graffiti/reports', reportPayload())
         ->assertCreated()
         ->assertJsonPath('external_id', 'KGN-20260729-TEST0001')
@@ -29,7 +29,7 @@ it('stores an incoming report and its media', function (): void {
 });
 
 it('accepts a retry without creating a duplicate', function (): void {
-    $request = fn () => $this->withToken('integration-test-token')
+    $request = fn () => $this->withHeader('X-Stop-Graffiti-Token', 'integration-test-token')
         ->postJson('/api/integrations/stop-graffiti/reports', reportPayload());
 
     $request()->assertCreated();

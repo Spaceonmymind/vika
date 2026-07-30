@@ -11,7 +11,10 @@ class AuthenticateIntegration
     public function handle(Request $request, Closure $next): Response
     {
         $configuredToken = (string) config('services.stop_graffiti.integration_token');
-        $providedToken = (string) $request->bearerToken();
+        $providedToken = (string) $request->header(
+            'X-Stop-Graffiti-Token',
+            $request->bearerToken(),
+        );
 
         if ($configuredToken === '' || $providedToken === '' || ! hash_equals($configuredToken, $providedToken)) {
             abort(Response::HTTP_UNAUTHORIZED, 'Invalid integration token.');

@@ -11,6 +11,7 @@ use Modules\StopGraffiti\Http\Requests\UpdateReportRequest;
 use Modules\StopGraffiti\Models\Report;
 use Modules\StopGraffiti\Models\ReportMedia;
 use Modules\StopGraffiti\Services\ReportService;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class AdminReportController
@@ -55,7 +56,7 @@ class AdminReportController
         abort_unless($media->archive_status === 'archived' && $media->storage_path, 404);
         abort_unless(Storage::disk('local')->exists($media->storage_path), 404);
 
-        return response()->streamDownload(
+        return response()->stream(
             static function () use ($media): void {
                 $stream = Storage::disk('local')->readStream($media->storage_path);
                 if ($stream === false) {
@@ -64,8 +65,11 @@ class AdminReportController
                 fpassthru($stream);
                 fclose($stream);
             },
-            basename($media->storage_path),
-            ['Content-Type' => $media->mime_type ?? 'application/octet-stream'],
+            Response::HTTP_OK,
+            [
+                'Content-Type' => $media->mime_type ?? 'application/octet-stream',
+                'Content-Disposition' => 'inline; filename="'.basename($media->storage_path).'"',
+            ],
         );
     }
 }

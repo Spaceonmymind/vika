@@ -4,6 +4,7 @@ namespace Modules\StopGraffiti\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\URL;
 
 class ReportMedia extends Model
 {
@@ -39,6 +40,10 @@ class ReportMedia extends Model
             return null;
         }
 
-        return "/api/admin/stop-graffiti/media/{$this->id}";
+        return URL::temporarySignedRoute(
+            'api.stop-graffiti.media',
+            now()->addMinutes(30),
+            ['media' => $this],
+        );
     }
 }

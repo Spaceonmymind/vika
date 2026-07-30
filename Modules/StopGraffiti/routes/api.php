@@ -11,12 +11,15 @@ Route::prefix('integrations/stop-graffiti')
         Route::post('reports', [IntegrationReportController::class, 'store']);
     });
 
+Route::get('admin/stop-graffiti/media/{media}', [AdminReportController::class, 'downloadMedia'])
+    ->middleware('signed')
+    ->name('stop-graffiti.media');
+
 Route::prefix('admin/stop-graffiti')
     ->middleware(['auth:sanctum', 'permission:manage_stop_graffiti'])
     ->group(function (): void {
         Route::get('reports', [AdminReportController::class, 'index']);
         Route::get('metadata', [AdminReportController::class, 'metadata']);
-        Route::get('media/{media}', [AdminReportController::class, 'downloadMedia']);
         Route::get('reports/{report}', [AdminReportController::class, 'show']);
         Route::patch('reports/{report}', [AdminReportController::class, 'update']);
     });

@@ -196,19 +196,25 @@ export default {
       await this.loadMedia(data.media || []);
     },
     async loadMedia(mediaItems) {
-      await Promise.all(mediaItems.map(async media => {
+      const loadedMedia = await Promise.all(mediaItems.map(async media => {
         if (!media.download_url) {
-          return;
+          return media;
         }
 
         try {
           const {data} = await this.$axios.get(media.download_url, {responseType: 'blob'});
-          media.preview_url = URL.createObjectURL(data);
-          this.mediaObjectUrls.push(media.preview_url);
+          const previewUrl = URL.createObjectURL(data);
+          this.mediaObjectUrls.push(previewUrl);
+
+          return {...media, preview_url: previewUrl};
         } catch {
-          media.load_error = true;
+          return {...media, load_error: true};
         }
       }));
+
+      if (this.selected) {
+        this.selected = {...this.selected, media: loadedMedia};
+      }
     },
     revokeMediaObjectUrls() {
       this.mediaObjectUrls.forEach(url => URL.revokeObjectURL(url));
@@ -221,7 +227,9 @@ export default {
           `/api/admin/stop-graffiti/reports/${this.selected.id}`,
           this.edit,
         );
+        this.revokeMediaObjectUrls();
         this.selected = data;
+        await this.loadMedia(data.media || []);
         this.edit.comment = null;
         await this.loadReports();
         ElMessage.success('Обращение обновлено');

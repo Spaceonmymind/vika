@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('stop_graffiti_reports', function (Blueprint $table) {
             $table->id();
             $table->string('external_id')->unique();
-            $table->timestampTz('reported_at');
+            $table->dateTimeTz('reported_at');
             $table->bigInteger('max_user_id')->index();
             $table->bigInteger('max_recipient_id');
             $table->boolean('recipient_is_chat');
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('comment')->nullable();
             $table->string('status')->default('new')->index();
             $table->foreignId('assigned_to')->nullable()->constrained('users')->nullOnDelete();
-            $table->timestamp('received_at');
+            $table->dateTime('received_at');
             $table->timestamps();
         });
 
@@ -44,7 +44,7 @@ return new class extends Migration
             $table->string('to_status');
             $table->text('comment')->nullable();
             $table->foreignId('changed_by')->nullable()->constrained('users')->nullOnDelete();
-            $table->timestamp('created_at');
+            $table->dateTime('created_at');
         });
     }
 

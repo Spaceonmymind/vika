@@ -12,7 +12,7 @@ Route::prefix('integrations/stop-graffiti')
     });
 
 Route::get('admin/stop-graffiti/media/{media}', [AdminReportController::class, 'downloadMedia'])
-    ->middleware('signed')
+    ->middleware('signed:relative')
     ->name('stop-graffiti.media');
 
 Route::prefix('admin/stop-graffiti')

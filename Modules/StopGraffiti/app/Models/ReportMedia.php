@@ -44,6 +44,7 @@ class ReportMedia extends Model
             'api.stop-graffiti.media',
             now()->addMinutes(30),
             ['media' => $this],
+            absolute: false,
         );
     }
 }

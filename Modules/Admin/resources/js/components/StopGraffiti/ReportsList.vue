@@ -73,17 +73,19 @@
           <a
             v-for="media in selected.media"
             :key="media.id"
-            :href="media.download_url || '#'"
+            :href="media.preview_url || '#'"
             target="_blank"
             rel="noopener noreferrer"
             class="media-card"
+            @click="!media.preview_url && $event.preventDefault()"
           >
             <el-image
-              v-if="media.type === 'image' && media.download_url"
-              :src="media.download_url"
+              v-if="media.type === 'image' && media.preview_url"
+              :src="media.preview_url"
               fit="cover"
             />
-            <span v-else>{{ media.type }} — открыть материал</span>
+            <span v-else-if="media.load_error">Ошибка загрузки материала</span>
+            <span v-else>Загрузка материала…</span>
           </a>
         </div>
         <el-empty v-else description="Материалы отсутствуют"/>
@@ -145,6 +147,7 @@ export default {
       drawer: false,
       reports: [],
       selected: null,
+      mediaObjectUrls: [],
       filters: {query: null, status: null, category: null},
       metadata: {statuses: [], categories: [], operators: []},
       pagination: {current_page: 1, per_page: 15, total: 0},
@@ -153,6 +156,9 @@ export default {
   },
   async mounted() {
     await Promise.all([this.loadMetadata(), this.loadReports()]);
+  },
+  beforeUnmount() {
+    this.revokeMediaObjectUrls();
   },
   methods: {
     async loadMetadata() {
@@ -179,6 +185,7 @@ export default {
       }
     },
     async openReport(row) {
+      this.revokeMediaObjectUrls();
       const {data} = await this.$axios.get(`/api/admin/stop-graffiti/reports/${row.id}`);
       this.selected = data;
       this.edit = {
@@ -187,6 +194,26 @@ export default {
         comment: null,
       };
       this.drawer = true;
+      await this.loadMedia(data.media || []);
+    },
+    async loadMedia(mediaItems) {
+      await Promise.all(mediaItems.map(async media => {
+        if (!media.download_url) {
+          return;
+        }
+
+        try {
+          const {data} = await this.$axios.get(media.download_url, {responseType: 'blob'});
+          media.preview_url = URL.createObjectURL(data);
+          this.mediaObjectUrls.push(media.preview_url);
+        } catch {
+          media.load_error = true;
+        }
+      }));
+    },
+    revokeMediaObjectUrls() {
+      this.mediaObjectUrls.forEach(url => URL.revokeObjectURL(url));
+      this.mediaObjectUrls = [];
     },
     async saveReport() {
       this.saving = true;

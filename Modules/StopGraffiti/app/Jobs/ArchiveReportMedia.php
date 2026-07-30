@@ -86,6 +86,7 @@ class ArchiveReportMedia implements ShouldQueue
                 throw new RuntimeException('Unable to write MAX media to private storage.');
             }
             fclose($stream);
+            $this->makeReadableByPhpFpm($storagePath);
 
             $media->update([
                 'archive_status' => 'archived',
@@ -136,6 +137,30 @@ class ArchiveReportMedia implements ShouldQueue
             'application/pdf' => 'pdf',
             default => 'bin',
         };
+    }
+
+    private function makeReadableByPhpFpm(string $storagePath): void
+    {
+        $disk = Storage::disk('local');
+        $absolutePath = $disk->path($storagePath);
+        $diskRoot = rtrim($disk->path(''), DIRECTORY_SEPARATOR);
+
+        if (! chmod($absolutePath, 0644)) {
+            throw new RuntimeException('Unable to set archived media file permissions.');
+        }
+
+        $directory = dirname($absolutePath);
+        while (str_starts_with($directory, $diskRoot)) {
+            if (! chmod($directory, 0755)) {
+                throw new RuntimeException('Unable to set archived media directory permissions.');
+            }
+
+            if ($directory === $diskRoot) {
+                break;
+            }
+
+            $directory = dirname($directory);
+        }
     }
 
     private function failMedia(ReportMedia $media, string $message): void

@@ -108,5 +108,14 @@ return [
     'telemost' => [
         'base_url' => env('TELEMOST_BASE_URL', 'https://cloud-api.yandex.net/v1/telemost-api'),
         'token' => env('TELEMOST_TOKEN'),
-    ]
+    ],
+    'stop_graffiti' => [
+        'integration_token' => env('STOP_GRAFFITI_INTEGRATION_TOKEN'),
+        'bot_callback_url' => env('STOP_GRAFFITI_BOT_CALLBACK_URL'),
+        'bot_callback_token' => env('STOP_GRAFFITI_BOT_CALLBACK_TOKEN'),
+        'media_allowed_hosts' => array_filter(array_map(
+            'trim',
+            explode(',', (string) env('STOP_GRAFFITI_MEDIA_ALLOWED_HOSTS', 'i.oneme.ru')),
+        )),
+    ],
 ];

@@ -109,6 +109,14 @@ class PermissionsAndAdminRoleTableSeeder extends Seeder
                 'updated_at' => '2025-04-15 16:34:16',
                 'russian_name' => 'Получение статистики по интентам',
             ],
+            [
+                'id' => 10,
+                'name' => 'manage_stop_graffiti',
+                'guard_name' => 'web',
+                'created_at' => '2026-07-29 18:00:00',
+                'updated_at' => '2026-07-29 18:00:00',
+                'russian_name' => 'Работа с обращениями СтопГраффити',
+            ],
         ];
 
         foreach ($permissions as $permission){

@@ -27,6 +27,7 @@
       23 => 'Modules\\SportSectionsWidget\\Providers\\SportSectionsWidgetServiceProvider',
       24 => 'Modules\\TimetableWidget\\Providers\\TimetableWidgetServiceProvider',
       25 => 'Modules\\Vika\\Providers\\VikaServiceProvider',
+      26 => 'Modules\\StopGraffiti\\Providers\\StopGraffitiServiceProvider',
   ),
     'eager' =>
   array (
@@ -56,6 +57,7 @@
       23 => 'Modules\\SportSectionsWidget\\Providers\\SportSectionsWidgetServiceProvider',
       24 => 'Modules\\TimetableWidget\\Providers\\TimetableWidgetServiceProvider',
       25 => 'Modules\\Vika\\Providers\\VikaServiceProvider',
+      26 => 'Modules\\StopGraffiti\\Providers\\StopGraffitiServiceProvider',
   ),
     'deferred' =>
   array (

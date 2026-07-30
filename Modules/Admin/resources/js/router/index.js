@@ -134,6 +134,15 @@ const routes = [
                 ]
             },
             {
+                path: 'stop-graffiti',
+                name: 'stop-graffiti',
+                component: () => import('../components/StopGraffiti/ReportsList.vue'),
+                meta: {
+                    title: 'СтопГраффити',
+                    permissions: ['manage_stop_graffiti']
+                }
+            },
+            {
                 path: 'cold',
                 name: 'cold',
                 redirect: '/cold/today',

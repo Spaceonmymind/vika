@@ -144,6 +144,12 @@ export default {
           ],
         },
         {
+          title: 'СтопГраффити',
+          link: '/stop-graffiti',
+          ico: 'chat',
+          permissions: ['manage_stop_graffiti'],
+        },
+        {
           title: 'Актировки',
           link: '/cold',
           ico: 'cold',

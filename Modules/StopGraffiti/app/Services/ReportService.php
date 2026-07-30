@@ -6,8 +6,8 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Modules\Admin\Models\User;
 use Modules\StopGraffiti\Enums\ReportStatus;
-use Modules\StopGraffiti\Jobs\NotifyReportStatusChanged;
 use Modules\StopGraffiti\Jobs\ArchiveReportMedia;
+use Modules\StopGraffiti\Jobs\NotifyReportStatusChanged;
 use Modules\StopGraffiti\Models\Report;
 
 class ReportService
@@ -70,7 +70,7 @@ class ReportService
     }
 
     /**
-     * @param array{query?: string|null, status?: string|null, category?: string|null, assigned_to?: int|null, per_page?: int|null} $filters
+     * @param  array{query?: string|null, status?: string|null, category?: string|null, assigned_to?: int|null, per_page?: int|null}  $filters
      */
     public function paginate(array $filters): LengthAwarePaginator
     {
@@ -92,7 +92,7 @@ class ReportService
     }
 
     /**
-     * @param array{status?: string, assigned_to?: int|null, comment?: string|null} $data
+     * @param  array{status?: string, assigned_to?: int|null, comment?: string|null}  $data
      */
     public function update(Report $report, array $data, User $operator): Report
     {

@@ -11,7 +11,8 @@ Route::prefix('integrations/stop-graffiti')
         Route::post('reports', [IntegrationReportController::class, 'store']);
     });
 
-Route::get('admin/stop-graffiti/media/{media}', [AdminReportController::class, 'downloadMedia'])
+Route::get('admin/stop-graffiti/media/{mediaId}', [AdminReportController::class, 'downloadMedia'])
+    ->whereNumber('mediaId')
     ->middleware('signed:relative')
     ->name('stop-graffiti.media');
 

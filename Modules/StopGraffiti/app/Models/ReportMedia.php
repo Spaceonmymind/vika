@@ -43,7 +43,7 @@ class ReportMedia extends Model
         return URL::temporarySignedRoute(
             'api.stop-graffiti.media',
             now()->addMinutes(30),
-            ['media' => $this],
+            ['mediaId' => $this->getKey()],
             absolute: false,
         );
     }

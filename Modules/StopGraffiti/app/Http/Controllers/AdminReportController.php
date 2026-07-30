@@ -51,8 +51,10 @@ class AdminReportController
         ]);
     }
 
-    public function downloadMedia(ReportMedia $media): StreamedResponse
+    public function downloadMedia(int $mediaId): StreamedResponse
     {
+        $media = ReportMedia::query()->findOrFail($mediaId);
+
         abort_unless($media->archive_status === 'archived' && $media->storage_path, 404);
         abort_unless(Storage::disk('local')->exists($media->storage_path), 404);
 

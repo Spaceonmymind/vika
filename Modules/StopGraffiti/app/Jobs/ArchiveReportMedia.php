@@ -79,7 +79,10 @@ class ArchiveReportMedia implements ShouldQueue
             $extension = $this->extensionFor($mimeType);
             $storagePath = "stop-graffiti/{$media->report_id}/".Str::uuid().".{$extension}";
             $stream = fopen($temporaryPath, 'rb');
-            if ($stream === false || ! Storage::disk('local')->put($storagePath, $stream)) {
+            if (
+                $stream === false
+                || ! Storage::disk('local')->put($storagePath, $stream, ['visibility' => 'public'])
+            ) {
                 throw new RuntimeException('Unable to write MAX media to private storage.');
             }
             fclose($stream);

@@ -94,6 +94,7 @@ server {
         fastcgi_param       SCRIPT_FILENAME        $realpath_root$fastcgi_script_name;
         fastcgi_param       HTTP_X_FORWARDED_PROTO $http_x_forwarded_proto;
         fastcgi_param       HTTP_AUTHORIZATION     $http_authorization;
+        fastcgi_param       HTTP_X_STOP_GRAFFITI_TOKEN $http_x_stop_graffiti_token;
         include             fastcgi_params;
         fastcgi_hide_header X-Powered-By;
     }

@@ -73,11 +73,10 @@
           <a
             v-for="media in selected.media"
             :key="media.id"
-            :href="media.preview_url || '#'"
-            target="_blank"
+            :href="media.preview_url || undefined"
+            :target="media.preview_url ? '_blank' : undefined"
             rel="noopener noreferrer"
             class="media-card"
-            @click="!media.preview_url && $event.preventDefault()"
           >
             <el-image
               v-if="media.type === 'image' && media.preview_url"
